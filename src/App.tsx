@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { CharbonKeyboard } from './components/CharbonKeyboard';
 import { Composer } from './components/Composer';
 import { SettingsModal } from './components/SettingsModal';
+import { CatalogPageModal } from './components/CatalogPageModal';
 import { CharbonSettings, CharbonStorage } from './services/prefs';
-import { Settings, Smartphone, Moon, Sun, ShieldCheck } from 'lucide-react';
+import { Settings, Smartphone, Moon, Sun, ShieldCheck, FolderDown } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [settings, setSettings] = useState<CharbonSettings>(() => CharbonStorage.getSettings());
   const [textBuffer, setTextBuffer] = useState<string>('Hello Charbon ⌘ → ★');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isCatalogOpen, setIsCatalogOpen] = useState<boolean>(false);
   const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>('dark');
 
   // Handle system vs explicit theme
@@ -91,7 +93,7 @@ export const App: React.FC = () => {
                   Charbon
                 </h1>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-semibold">
-                  v1.0.0
+                  v1.1.0
                 </span>
               </div>
               <p className="text-[10px] text-neutral-500 dark:text-neutral-400 hidden sm:block">
@@ -102,6 +104,15 @@ export const App: React.FC = () => {
 
           {/* Quick Header Actions */}
           <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => setIsCatalogOpen(true)}
+              title="Files, APK Downloads & Catalog"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-semibold transition-colors"
+            >
+              <FolderDown size={15} />
+              <span className="hidden sm:inline">Downloads & Catalog</span>
+            </button>
+
             <button
               onClick={toggleThemeQuick}
               title={`Switch to ${activeTheme === 'dark' ? 'Light' : 'Dark'} theme`}
@@ -156,10 +167,17 @@ export const App: React.FC = () => {
             <span>Native Android IME codebase in <code className="font-mono text-neutral-700 dark:text-neutral-300">/android</code></span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsCatalogOpen(true)}
+              className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-medium"
+            >
+              <FolderDown size={13} /> Downloads & File Explorer
+            </button>
+            <span>•</span>
             <button
               onClick={() => setIsSettingsOpen(true)}
-              className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-medium"
+              className="text-neutral-600 dark:text-neutral-400 hover:underline flex items-center gap-1 font-medium"
             >
               <Smartphone size={13} /> Android APK Instructions
             </button>
@@ -174,6 +192,12 @@ export const App: React.FC = () => {
         settings={settings}
         onSaveSettings={handleSaveSettings}
         onDataReset={handleDataReset}
+      />
+
+      {/* Project Catalog & File Explorer Modal */}
+      <CatalogPageModal
+        isOpen={isCatalogOpen}
+        onClose={() => setIsCatalogOpen(false)}
       />
     </div>
   );
