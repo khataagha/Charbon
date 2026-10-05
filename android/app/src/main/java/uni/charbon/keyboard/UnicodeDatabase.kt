@@ -186,7 +186,7 @@ object UnicodeDatabase {
         return items
     }
 
-    private fun categoryName(t: Int): String = when (t) {
+    private fun categoryName(t: Int): String = when (t.toByte()) {
         UCharacter.UPPERCASE_LETTER -> "Letter, Uppercase"
         UCharacter.LOWERCASE_LETTER -> "Letter, Lowercase"
         UCharacter.TITLECASE_LETTER -> "Letter, Titlecase"
