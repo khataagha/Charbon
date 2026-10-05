@@ -225,9 +225,14 @@ class CharbonKeyboardView(context: Context) : LinearLayout(context) {
         spLp.leftMargin = dp(4); spLp.rightMargin = dp(4)
         controls.addView(space, spLp)
 
-        controls.addView(iconKey("\u232B") { if (searching) queryDrop() else listener?.backspace() }, dp(46), dp(46))
-        controls.addView(iconKey("\u21B5") { if (searching) exitSearch(false) else listener?.enter() }, dp(46), dp(46))
-        controls.addView(iconKey("\uD83C\uDF10") { listener?.switchKeyboard() }, dp(46), dp(46))
+        val backspaceKey = iconKey("\u232B") { if (searching) queryDrop() else listener?.backspace() }
+        controls.addView(backspaceKey, LinearLayout.LayoutParams(dp(46), dp(46)))
+
+        val enterKey = iconKey("\u21B5") { if (searching) exitSearch(false) else listener?.enter() }
+        controls.addView(enterKey, LinearLayout.LayoutParams(dp(46), dp(46)))
+
+        val globeKey = iconKey("\uD83C\uDF10") { listener?.switchKeyboard() }
+        controls.addView(globeKey, LinearLayout.LayoutParams(dp(46), dp(46)))
 
         addView(controls)
     }
@@ -245,7 +250,7 @@ class CharbonKeyboardView(context: Context) : LinearLayout(context) {
         return tv
     }
 
-    private fun iconKey(glyph: String): TextView {
+    private fun iconKey(glyph: String, onClick: (() -> Unit)? = null): TextView {
         val tv = TextView(context)
         tv.text = glyph
         tv.textSize = 18f
@@ -253,6 +258,9 @@ class CharbonKeyboardView(context: Context) : LinearLayout(context) {
         tv.setTextColor(cFg)
         tv.background = round(cKey, 10f)
         tv.isClickable = true
+        if (onClick != null) {
+            tv.setOnClickListener { feedback(); onClick() }
+        }
         return tv
     }
 
