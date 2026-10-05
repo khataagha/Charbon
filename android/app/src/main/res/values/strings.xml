@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Charbon</string>
+    <string name="ime_name">Charbon Keyboard</string>
+    <string name="search_hint">Search Unicode…</string>
+    <string name="recent">Recent</string>
+    <string name="favorites">Favorites</string>
+</resources>
