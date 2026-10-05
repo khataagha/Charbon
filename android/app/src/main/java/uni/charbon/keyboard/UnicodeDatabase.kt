@@ -148,7 +148,7 @@ object UnicodeDatabase {
         try { categoryName(UCharacter.getType(cp)) } catch (e: Exception) { "Unknown" }
 
     fun isCombining(cp: Int): Boolean =
-        try { UCharacter.getType(cp) == UCharacter.NON_SPACING_MARK } catch (e: Exception) { false }
+        try { UCharacter.getType(cp) == UCharacter.NON_SPACING_MARK.toInt() } catch (e: Exception) { false }
 
     fun textFor(codePoints: IntArray): String = buildString {
         for (c in codePoints) appendCodePoint(c)
