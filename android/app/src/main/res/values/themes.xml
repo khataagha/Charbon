@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Charbon" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/charbon_primary</item>
+        <item name="colorPrimaryDark">@color/charbon_primary</item>
+        <item name="colorAccent">@color/charbon_accent</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+    </style>
+</resources>
